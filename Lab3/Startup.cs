@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Lab3.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab3
 {
@@ -28,6 +30,10 @@ namespace Lab3
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
