@@ -1,5 +1,30 @@
-﻿<h3>
+﻿@*<h3>
     @ViewData["Greeting"]<br />
     The time is @ViewData["Time"] on @ViewData["Date"]<br />
     @ViewData["TimeLeft"] more days until 2018
-</h3>
+</h3>*@
+
+@model List<Lab3.Models.Person>
+
+<h1>List of People</h1>
+
+<table>
+    <tr>
+        <th>Person ID</th>
+        <th>Name</th>
+        <th>Birthdate</th>
+        <th>Age</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.PersonID</td>
+            <td><a asp-action="ShowPerson" asp-route-id="@item.PersonID">@item.FirstName @item.LastName</a></td>
+            <td>@String.Format("{0:MMMM d, yyyy}", item.BirthDate)</td>
+            <td>@item.Age</td>
+        </tr>
+
+    }
+
+
+</table>

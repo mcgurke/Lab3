@@ -9,9 +9,15 @@ namespace Lab3.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            var currentTime = DateTime.Now;
+            /*var currentTime = DateTime.Now;
             if (currentTime.Hour < 12)
                 ViewData["Greeting"] = "Good Morning!";
             else if (currentTime.Hour < 18)
@@ -23,14 +29,16 @@ namespace Lab3.Controllers
             DateTime nextYear = new DateTime(DateTime.Today.Year + 1, 1, 1);
             TimeSpan duration = nextYear - DateTime.Today;
             ViewData["TimeLeft"] = duration.Days;
-            return View();
+            return View();*/
+
+            return View(_context.People.ToList());
         }
 
-        public IActionResult ShowPerson(Person p)
+        public IActionResult ShowPerson(int? id)
         {
-            Console.Write("egg " + p.FirstName);
             ViewData["Heading"] = "Person";
-            if (p.FirstName == "" || p.FirstName == null || p.FirstName == "") 
+            Person p;
+            if (id == null)
             {
                 p = new Person
                 {
@@ -38,8 +46,12 @@ namespace Lab3.Controllers
                     LastName = "Defaultson",
                     BirthDate = new DateTime(1950, 1, 1)
                 };
+                return View(p);
             }
-            return View(p);
+            p = _context.People
+                    .SingleOrDefault(person => person.PersonID == id);
+            
+            return View("ShowPerson", p);
         }
         
 
@@ -48,12 +60,20 @@ namespace Lab3.Controllers
             return View();
         }
 
+        public IActionResult EditPerson(Person person)
+        {
+            return RedirectToAction("AddPerson", person);
+        }
+
         [HttpPost]
         public IActionResult AddPerson(Person person)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("ShowPerson", person);
+                //return RedirectToAction("ShowPerson", person);
+                _context.Add(person);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             else
             {
