@@ -65,6 +65,19 @@ namespace Lab3.Controllers
             return RedirectToAction("AddPerson", person);
         }
 
+       public IActionResult DeletePerson(int? id)
+        {
+            Person p;
+            if (id != null)
+            {
+                p = _context.People
+                    .SingleOrDefault(person => person.PersonID == id);
+                _context.Remove(p);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult AddPerson(Person person)
         {
