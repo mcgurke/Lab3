@@ -4,5 +4,5 @@
 <p>Name: @Model.FirstName @Model.LastName</p>
 <p>Birthday: @String.Format("{0:MMMM d, yyyy}", Model.BirthDate)</p>
 <p>Age: @Model.Age</p>
-<a asp-action="EditPerson">Edit</a><br />
+<a asp-action="EditPerson" asp-route-id=@Model.PersonID>Edit</a><br />
 <a asp-action="DeletePerson" asp-route-id=@Model.PersonID>Delete</a>

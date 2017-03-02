@@ -60,10 +60,14 @@ namespace Lab3.Controllers
             return View();
         }
 
-        public IActionResult EditPerson(Person person)
+        public IActionResult EditPerson(int id)
         {
-            return RedirectToAction("AddPerson", person);
+            Person p = _context.People
+                    .SingleOrDefault(person => person.PersonID == id);
+            return View("AddPerson", p);
         }
+
+
 
        public IActionResult DeletePerson(int? id)
         {

@@ -1,10 +1,23 @@
 ﻿@model Lab3.Models.Person
 <form asp-action="AddPerson" method="post">
-    
-    <div>       
-        First Name <input type="text" name="firstname" /><br />
-        Last Name <input type="text" name="lastname" /><br />
-        Birthday <input type="date" name="birthdate" /><br />
-        <input type="submit" />
-    </div>
+    @if (Model == null)
+    {
+        <div>       
+            First Name <input type="text" name="firstname" /><br />
+            Last Name <input type="text" name="lastname" /><br />
+            Birthday <input type="date" name="birthdate" /><br />
+            <input type="submit" />
+        </div>
+    }
+    @if (Model != null)
+    {
+        <h1>Edit Person</h1>
+        <div>
+            First Name <input type="text" name="firstname" value=@Model.FirstName /><br />
+            Last Name <input type="text" name="lastname" value=@Model.LastName /><br />
+            Birthday <input type="date" name="birthdate" value=@Model.BirthDate.ToString("yyyy-MM-dd") /><br />
+            @Model.PersonID
+            <input type="submit" asp-action="DeletePerson" asp-route-id=@Model.PersonID />
+        </div>
+    }
 </form>

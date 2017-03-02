@@ -19,7 +19,7 @@
     {
         <tr>
             <td>@item.PersonID</td>
-            <td><a asp-action="ShowPerson" asp-route-id="@item.PersonID">@item.FirstName @item.LastName</a></td>
+            <td><a asp-action="ShowPerson" asp-route-id=@item.PersonID>@item.FirstName @item.LastName</a></td>
             <td>@String.Format("{0:MMMM d, yyyy}", item.BirthDate)</td>
             <td>@item.Age</td>
         </tr>
