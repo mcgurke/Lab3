@@ -18,20 +18,6 @@ namespace Lab3.Controllers
         }
         public IActionResult Index()
         {
-            /*var currentTime = DateTime.Now;
-            if (currentTime.Hour < 12)
-                ViewData["Greeting"] = "Good Morning!";
-            else if (currentTime.Hour < 18)
-                ViewData["Greeting"] = "Good Afternoon!";
-            else
-                ViewData["Greeting"] = "Good Evening!";
-            ViewData["Time"] = String.Format("{0:h:mm tt}", currentTime);
-            ViewData["Date"] = String.Format("{0:dddd, MMMM d, yyyy}", currentTime);
-            DateTime nextYear = new DateTime(DateTime.Today.Year + 1, 1, 1);
-            TimeSpan duration = nextYear - DateTime.Today;
-            ViewData["TimeLeft"] = duration.Days;
-            return View();*/
-
             return View(_context.People.ToList());
         }
 
