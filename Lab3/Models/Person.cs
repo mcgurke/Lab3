@@ -13,7 +13,9 @@ namespace Lab3.Models
         [Required]
         [StringLength(20, MinimumLength = 2)]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
         public int Age
         {

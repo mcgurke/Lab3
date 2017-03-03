@@ -38,18 +38,7 @@ namespace Lab3.Controllers
         public IActionResult ShowPerson(int? id)
         {
             ViewData["Heading"] = "Person";
-            Person p;
-            if (id == null)
-            {
-                p = new Person
-                {
-                    FirstName = "Default",
-                    LastName = "Defaultson",
-                    BirthDate = new DateTime(1950, 1, 1)
-                };
-                return View(p);
-            }
-            p = _context.People
+            Person p = _context.People
                     .SingleOrDefault(person => person.PersonID == id);
             
             return View("ShowPerson", p);
@@ -63,31 +52,28 @@ namespace Lab3.Controllers
 
         public IActionResult EditPerson(int? id)
         {
-            Person p = _context.People
+            if (id != null)
+            { 
+                Person p = _context.People
                     .SingleOrDefault(person => person.PersonID == id);
-            return View(p);
+                return View(p);
+            }
+            return View();
         }
 
         [HttpPost]
         public IActionResult SubmitEditPerson(int id, [Bind("PersonID,FirstName,LastName,BirthDate")] Person p)
         {
-            if (ModelState.IsValid)
-            {
-                //Person p = _context.People
-                //    .SingleOrDefault(person => person.PersonID == id);
-                // _context.Update(p);
-                _context.Entry(p).State = EntityState.Modified;
-                //_context.SaveChanges();
-                //return RedirectToAction("Index");
-                //return RedirectToAction("Index");
-                _context.Update(p);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+            if (p != null) {
+                if (ModelState.IsValid)
+                {
+                    
+                    _context.Update(p);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            else
-            {
-                return RedirectToAction("ShowPerson", id);
-            }
+            return View("EditPerson", p);
         }
 
         public IActionResult DeletePerson(int? id)
@@ -108,14 +94,13 @@ namespace Lab3.Controllers
         {
             if (ModelState.IsValid)
             {
-                //return RedirectToAction("ShowPerson", person);
                 _context.Add(person);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
             {
-                return View();
+                return View(person);
             }
         }
 

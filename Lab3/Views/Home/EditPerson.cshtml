@@ -4,11 +4,11 @@
     <h1>Edit Person</h1>
     <div>
         <input type="hidden" asp-for="PersonID" />
-        First Name <input type="text" asp-for="FirstName" name="firstname" value=@Model.FirstName /><br />
-        Last Name <input type="text" name="lastname" value=@Model.LastName /><br />
-        Birthday <input type="date" name="birthdate" value=@Model.BirthDate.ToString("yyyy-MM-dd") /><br />
-        @Model.PersonID
-        <input type="Submit" value="Save Changes" class="btn btn-default"/>
-        @*<a asp-action="SubmitEditPerson" asp-route-id=@Model.PersonID >Submit Changes</a>*@
-    </div>
+        First Name <input type="text" asp-for="FirstName" name="firstname"  /><br />
+        <span asp-validation-for="FirstName" class="text-danger"></span><br />
+        Last Name <input type="text" name="lastname" asp-for="LastName" /><br />
+        <span asp-validation-for="LastName" class="text-danger"></span><br />
+        Birthday <input type="date" name="birthdate" asp-for=BirthDate @*value=@Model.BirthDate.ToString("yyyy-MM-dd")*@ /><br />
+        <span asp-validation-for="BirthDate" class="text-danger"></span><br />
+        <input type="Submit" value="Save Changes" class="btn btn-default" />
 </form>
