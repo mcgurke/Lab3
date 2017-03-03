@@ -1,0 +1,14 @@
+﻿@model Lab3.Models.Person
+<form asp-action="SubmitEditPerson" method="post">
+
+    <h1>Edit Person</h1>
+    <div>
+        <input type="hidden" asp-for="PersonID" />
+        First Name <input type="text" asp-for="FirstName" name="firstname" value=@Model.FirstName /><br />
+        Last Name <input type="text" name="lastname" value=@Model.LastName /><br />
+        Birthday <input type="date" name="birthdate" value=@Model.BirthDate.ToString("yyyy-MM-dd") /><br />
+        @Model.PersonID
+        <input type="Submit" value="Save Changes" class="btn btn-default"/>
+        @*<a asp-action="SubmitEditPerson" asp-route-id=@Model.PersonID >Submit Changes</a>*@
+    </div>
+</form>

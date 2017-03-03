@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Lab3.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab3.Controllers
 {
@@ -60,16 +61,36 @@ namespace Lab3.Controllers
             return View();
         }
 
-        public IActionResult EditPerson(int id)
+        public IActionResult EditPerson(int? id)
         {
             Person p = _context.People
                     .SingleOrDefault(person => person.PersonID == id);
-            return View("AddPerson", p);
+            return View(p);
         }
 
+        [HttpPost]
+        public IActionResult SubmitEditPerson(int id, [Bind("PersonID,FirstName,LastName,BirthDate")] Person p)
+        {
+            if (ModelState.IsValid)
+            {
+                //Person p = _context.People
+                //    .SingleOrDefault(person => person.PersonID == id);
+                // _context.Update(p);
+                _context.Entry(p).State = EntityState.Modified;
+                //_context.SaveChanges();
+                //return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                _context.Update(p);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("ShowPerson", id);
+            }
+        }
 
-
-       public IActionResult DeletePerson(int? id)
+        public IActionResult DeletePerson(int? id)
         {
             Person p;
             if (id != null)

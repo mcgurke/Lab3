@@ -1,14 +1,16 @@
 ﻿@model Lab3.Models.Person
 <form asp-action="AddPerson" method="post">
-    @if (Model == null)
-    {
+    @*@if (Model == null)*@
+    
+        <h1>Add Person</h1>
         <div>       
             First Name <input type="text" name="firstname" /><br />
             Last Name <input type="text" name="lastname" /><br />
             Birthday <input type="date" name="birthdate" /><br />
-            <input type="submit" />
+            <input type="submit" class="btn btn-default"/>
         </div>
-    }
+    
+    @*
     @if (Model != null)
     {
         <h1>Edit Person</h1>
@@ -20,4 +22,5 @@
             <input type="submit" asp-action="DeletePerson" asp-route-id=@Model.PersonID />
         </div>
     }
+        *@
 </form>
